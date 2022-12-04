@@ -5,3 +5,8 @@ export interface IUserRequest {
   email: string;
   number: string;
 }
+
+export interface IUserLogin {
+  username: string;
+  password: string;
+}
