@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import { createUserController } from "../controllers/users/createUser.controller";
+import { deleteUserController } from "../controllers/users/deleteUser.controller";
 import { listUserController } from "../controllers/users/listUser.controller";
 import { listUsersController } from "../controllers/users/listUsers.controller";
 import { updateUserController } from "../controllers/users/updateUser.controller";
@@ -22,6 +23,7 @@ export const userRoutes = () => {
   routes.get("/", ensureAuth, listUsersController);
   routes.get("/:id", ensureAuth, isAccountOwner, listUserController);
   routes.patch("/:id", ensureAuth, isAccountOwner, updateUserController);
+  routes.delete("/:id", ensureAuth, isAccountOwner, deleteUserController);
 
   return routes;
 };
