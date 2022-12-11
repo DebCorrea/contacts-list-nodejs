@@ -1,17 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-import { AppError } from "../errors/AppError";
-
-const ensureAuth = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const ensureAuth = (req: Request, res: Response, next: NextFunction) => {
   let token = req.headers.authorization;
 
   if (!token) {
-    throw new AppError("Missing authorization header", 401);
+    return res.status(401).json({ message: "Missing authorization header" });
   }
 
   token = token.split(" ")[1];
