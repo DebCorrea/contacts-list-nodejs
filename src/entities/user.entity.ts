@@ -1,5 +1,13 @@
 import { Exclude } from "class-transformer";
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+} from "typeorm";
+
+import { Contact } from "./contact.entity";
 
 @Entity("users")
 class User {
@@ -24,6 +32,9 @@ class User {
 
   @CreateDateColumn()
   registrationDate: Date;
+
+  @OneToMany(() => Contact, (contact) => contact.owner, { eager: true })
+  contacts: Contact[];
 }
 
 export { User };
