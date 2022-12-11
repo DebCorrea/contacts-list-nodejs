@@ -9,6 +9,7 @@ import { isContactOwner } from "../middlewares/isContactOwner.middleware";
 import { listContactController } from "../controllers/contacts/listContact.controller";
 import { updateContactController } from "../controllers/contacts/updateContact.controller";
 import { deleteContactController } from "../controllers/contacts/deleteContact.controller";
+import { duplicatedContact } from "../middlewares/duplicatedContact.middleware";
 
 const routes = Router();
 
@@ -17,6 +18,7 @@ const contactRoutes = () => {
     "/",
     ensureAuth,
     validateSchema(validateContactSchema),
+    duplicatedContact,
     createContactController
   );
   routes.get("/", ensureAuth, listContactsController);

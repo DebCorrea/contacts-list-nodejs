@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 
 import AppDataSource from "../data-source";
 import { User } from "../entities/user.entity";
-import { AppError } from "../errors/AppError";
 
 const duplicatedUser = async (
   req: Request,
@@ -16,7 +15,9 @@ const duplicatedUser = async (
   });
 
   if (duplicatedUsername) {
-    throw new AppError("This username is already being used", 403);
+    return res
+      .status(403)
+      .json({ message: "This username is already being used" });
   }
 
   const duplicatedEmail = await userRepository.findOneBy({
@@ -24,7 +25,9 @@ const duplicatedUser = async (
   });
 
   if (duplicatedEmail) {
-    throw new AppError("This email is already being used", 403);
+    return res
+      .status(403)
+      .json({ message: "This email is already being used" });
   }
 
   const duplicatedNumber = await userRepository.findOneBy({
@@ -32,10 +35,12 @@ const duplicatedUser = async (
   });
 
   if (duplicatedNumber) {
-    throw new AppError("This number is already being used", 403);
+    return res
+      .status(403)
+      .json({ message: "This number is already being used" });
   }
 
-  next()
+  next();
 };
 
 export { duplicatedUser };
